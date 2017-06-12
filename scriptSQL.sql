@@ -1,7 +1,14 @@
 CREATE TABLE Professor (
     idProfessor SMALLINT PRIMARY KEY AUTO_INCREMENT,
     tipo ENUM ('user', 'admin') DEFAULT 'user',
-    nome VARCHAR(100)
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    password VARCHAR(128) NOT NULL,
+    created_at DATETIME,
+    updated_at DATETIME,
+    last_login_at DATETIME,
+    last_logout_at DATETIME,
+    UNIQUE (email)
 ) AUTO_INCREMENT = 1515;
 
 CREATE TABLE Disciplina (
