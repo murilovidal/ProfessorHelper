@@ -2,7 +2,7 @@
 <html>
 
   <head>
-    <title>ProfessorHelper</title>
+    <title>ProfessorHelper - Login</title>
     <meta charset="utf-8">
 
     <!-- Bootstrap Stuff -->
@@ -14,9 +14,9 @@
   </head>
 
   <body>
-        <div class="titulo">
-          ProfessorHelper
-        </div>
+    <div class="img-logo">
+      <img src="/images/ProfHel.png" class="img-logo">
+    </div>
 
         <div class="login-page">
           <div class="form">
@@ -25,6 +25,7 @@
               <input type="password" placeholder="Senha"/>
               <button>login</button>
               <p class="message">Esqueceu a senha? <a href="#">Clique aqui</a></p>
+              <p class="message">Não está cadastrado? <a href="#">Clique aqui</a></p>
             </form>
         </div>
     </div>
