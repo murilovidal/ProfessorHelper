@@ -71,11 +71,13 @@ if (!$login && $_SERVER["REQUEST_METHOD"] == "POST") {
 
 <?php if ($login): ?>
   <div class="form">
+    <form action="index.php" method="post">
+      <b>Você já está logado!</b>
+      <input type="submit" name="submit" value="Voltar">
+    </form>
     <form action="logout.php" method="post">
-
-    <p>Você já está logado!</p>
-    <input type="submit" name="submit" value="Sair">
-
+      <input type="submit" name="submit" value="Sair">
+    </form>
   </div>
   </body>
   </html>
