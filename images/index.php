@@ -1,6 +1,3 @@
-<?php
-  require "authenticate.php";
-?>
 <!DOCTYPE html>
 <html>
 
@@ -17,10 +14,8 @@
   </head>
 
   <body>
-
-
     <?php if (!$login): ?>
-      <li><a href="login.php">Fazer Login</a></li>
+      <li><a href="login.php">Login</a></li>
       <?php exit(); ?>
     <?php endif; ?>
     <nav class="navbar navbar-inverse">
@@ -80,7 +75,7 @@
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Sair</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Sair</a></li>
         </ul>
 
         <form class="navbar-form navbar-right">
@@ -100,21 +95,14 @@
   <div class="container-fluid text-center">
     <div class="row content">
       <div class="col-sm-2 sidenav">
-        <h2>Olá, <?php
-                      if ($login) {
-                        echo "$user_name!";
-                      }
-                      else {
-                        echo "!";
-                      }
-                    ?></h2>
+        <h2>Olá, usuário</h2>
       </div>
 
       <div class="col-sm-8 text-left"> <!-- div que compoe as ultimas questoes adicionadas -->
 
         <?php
           require 'db_credentials.php';
-          $conn = mysqli_connect($servername,$username,$db_password,$dbname);
+          $conn = mysqli_connect($servername,$username,$password,$dbname);
 
           if(!$conn){
             die ('Erro ao conectar ao banco MySQL');
