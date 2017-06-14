@@ -1,3 +1,6 @@
+<?php
+  require "authenticate.php";
+?>
 <html>
   <head>
     <title>ProfessorHelper</title>
@@ -114,7 +117,7 @@
                     <?php
                       // Inicio do processo de obtenção dos cursos registrados no banco de dados
                       require_once 'db_credentials.php';
-                      $conn = mysqli_connect($servername,$username,$password,$dbname);
+                      $conn = mysqli_connect($servername,$username,$db_password,$dbname);
 
                       if(!$conn){
                         die ('Erro ao conectar ao banco MySQL. Não foi possível gerar dropdown para cursos');
@@ -131,6 +134,7 @@
                             $cursoNome= $stc['nomeCurso'];
                             $cursoDesc= $stc['descricao'];
                             $cursoid= $stc['idCurso'];
+
                             //$ref = $_SERVER["PHP_SELF"] . "?id=" . $stc["idCurso"] . "&" . "acao=cursoSelecionado";
                             //echo "<li><a href=\"{$ref}\">{$cursoNome} - {$cursoDesc}</a></li>";
                             echo "<option value=\"{$cursoid}\">{$cursoNome} - {$cursoDesc}</option>";
@@ -159,7 +163,7 @@
 
       <?php
           require_once 'db_credentials.php';
-          $conn = mysqli_connect($servername,$username,$password,$dbname);
+          $conn = mysqli_connect($servername,$username,$db_password,$dbname);
 
           if(!$conn){
             die ('Erro ao conectar ao banco MySQL'.mysqli_connect_error());
@@ -171,7 +175,9 @@
               $nomeDisc = $_POST['nomeDisc'];
               $descricaoDisc = $_POST['descricaoDisc'];
               $codCurso = $_POST['selectedOption'];
-              $sql = "INSERT INTO Disciplina (nomeDisciplina, descricao, codCurso) VALUES ('$nomeDisc', '$descricaoDisc', '$codCurso');";
+              $owner = $_SESSION['user_id'];
+
+              $sql = "INSERT INTO Disciplina (nomeDisciplina, descricao, codCurso, professorOwner) VALUES ('$nomeDisc', '$descricaoDisc', '$codCurso', '$owner');";
 
               if (mysqli_query($conn, $sql)) {
                   echo "<b>Disciplina criada com sucesso!</b>";

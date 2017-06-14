@@ -1,3 +1,6 @@
+<?php
+  require "authenticate.php";
+?>
 <html>
   <head>
     <title>ProfessorHelper</title>
@@ -119,7 +122,7 @@
 
       <?php
           require 'db_credentials.php';
-          $conn = mysqli_connect($servername,$username,$password,$dbname);
+          $conn = mysqli_connect($servername,$username,$db_password,$dbname);
 
           if(!$conn){
             die ('Erro ao conectar ao banco MySQL'.mysqli_connect_error());
@@ -129,8 +132,9 @@
             if((isset($_POST["nomeCurso"])) && (isset($_POST["descricaoCurso"]))) {
               $nomeCurso = $_POST['nomeCurso'];
               $descricao = $_POST['descricaoCurso'];
+              $owner = $_SESSION['user_id'];
 
-              $sql = "INSERT INTO Curso (nomeCurso, descricao) VALUES ('$nomeCurso', '$descricao');";
+              $sql = "INSERT INTO Curso (nomeCurso, descricao, professorOwner) VALUES ('$nomeCurso', '$descricao','$owner');";
 
               if (mysqli_query($conn, $sql)) {
                   echo "<b>Curso criado com sucesso!</b>";

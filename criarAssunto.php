@@ -1,3 +1,6 @@
+<?php
+  require "authenticate.php";
+?>
 <html>
   <head>
     <title>ProfessorHelper</title>
@@ -114,7 +117,7 @@
                     <?php
                       // Inicio do processo de obtenção dos cursos registrados no banco de dados
                       require_once 'db_credentials.php';
-                      $conn = mysqli_connect($servername,$username,$password,$dbname);
+                      $conn = mysqli_connect($servername,$username,$db_password,$dbname);
 
                       if(!$conn){
                         die ('Erro ao conectar ao banco MySQL. Não foi possível gerar dropdown para cursos');
@@ -151,7 +154,7 @@
 
       <?php
           require_once 'db_credentials.php';
-          $conn = mysqli_connect($servername,$username,$password,$dbname);
+          $conn = mysqli_connect($servername,$username,$db_password,$dbname);
 
           if(!$conn){
             die ('Erro ao conectar ao banco MySQL'.mysqli_connect_error());
@@ -163,7 +166,9 @@
               $assunto = $_POST['Assunto'];
               $descricao = $_POST['descricaoAssunto'];
               $codDisc = $_POST['selectedOption'];
-              $sql = "INSERT INTO Assunto (tituloAssunto, descricao, codDisc) VALUES ('$assunto', '$descricao', '$codDisc');";
+              $owner = $_SESSION['user_id'];
+
+              $sql = "INSERT INTO Assunto (tituloAssunto, descricao, codDisc, professorOwner) VALUES ('$assunto', '$descricao', '$codDisc', '$owner');";
 
               if (mysqli_query($conn, $sql)) {
                   echo "<b>Assunto criado com sucesso!</b>";

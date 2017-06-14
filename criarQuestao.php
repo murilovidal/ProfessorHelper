@@ -1,3 +1,6 @@
+<?php
+  require "authenticate.php";
+?>
 <html>
   <head>
     <title>ProfessorHelper</title>
@@ -154,7 +157,7 @@
                       <?php
                         // Inicio do processo de obtenção dos cursos registrados no banco de dados
                         require_once 'db_credentials.php';
-                        $conn = mysqli_connect($servername,$username,$password,$dbname);
+                        $conn = mysqli_connect($servername,$username,$db_password,$dbname);
 
                         if(!$conn){
                           die ('Erro ao conectar ao banco MySQL. Não foi possível gerar dropdown para cursos');
@@ -191,7 +194,7 @@
                 <?php
                   // Inicio do processo de obtenção dos cursos registrados no banco de dados
                   require_once 'db_credentials.php';
-                  $conn = mysqli_connect($servername,$username,$password,$dbname);
+                  $conn = mysqli_connect($servername,$username,$db_password,$dbname);
 
                   if(!$conn){
                     die ('Erro ao conectar ao banco MySQL. Não foi possível gerar dropdown para cursos');
@@ -228,7 +231,7 @@
                 <?php
                   // Inicio do processo de obtenção dos assuntos registrados no banco de dados
                   require_once 'db_credentials.php';
-                  $conn = mysqli_connect($servername,$username,$password,$dbname);
+                  $conn = mysqli_connect($servername,$username,$db_password,$dbname);
 
                   if(!$conn){
                     die ('Erro ao conectar ao banco MySQL. Não foi possível gerar dropdown para cursos');
@@ -271,7 +274,7 @@
 <?php
 
     require_once 'db_credentials.php';
-    $conn = mysqli_connect($servername,$username,$password,$dbname);
+    $conn = mysqli_connect($servername,$username,$db_password,$dbname);
 
     if(!$conn){
       die ('Erro ao conectar ao banco MySQL'.mysqli_connect_error());
@@ -292,9 +295,11 @@
         $codCurso = $_POST['selectedOptionCurso'];
         $codDisc = $_POST['selectedOptionDisc'];
         $codAssunto = $_POST['selectedOptionAssunto'];
+        $owner = $_SESSION['user_id'];
 
-        $sql = "INSERT INTO Questao (tituloQuestao, enunciado, alternativaA, alternativaB, alternativaC, alternativaD, alternativaE, alternativaCorreta, curso, disciplina, assunto)
-                VALUES ('$titulo', '$enunciado', '$altA', '$altB', '$altC', '$altD', '$altE', '$correta', '$codCurso', '$codDisc', '$codAssunto');";
+
+        $sql = "INSERT INTO Questao (tituloQuestao, enunciado, alternativaA, alternativaB, alternativaC, alternativaD, alternativaE, alternativaCorreta, curso, disciplina, assunto, professorOwner)
+                VALUES ('$titulo', '$enunciado', '$altA', '$altB', '$altC', '$altD', '$altE', '$correta', '$codCurso', '$codDisc', '$codAssunto', '$owner');";
 
 
         if (mysqli_query($conn, $sql)) {
