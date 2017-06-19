@@ -30,6 +30,7 @@
       $conn = mysqli_connect($servername,$username,$db_password,$dbname);
       $corretas=0;
       $incorretas=0;
+      $num_questao = 0;
       foreach ($_REQUEST as $key => $value) {
           if(!$conn){
             die ('Erro ao conectar ao banco MySQL'.mysqli_connect_error());
@@ -41,6 +42,7 @@
                 while($stc = mysqli_fetch_array($result)){
                   $alternativaCorreta = $stc['alternativaCorreta'];
                   $titulo = $stc['tituloQuestao'];
+                  $num_questao++;
                 }
             }
             if ($alternativaCorreta==$value) {
@@ -54,7 +56,7 @@
             }
             echo "<tr>";
             echo "<td>";
-            echo $titulo  ;
+            echo $num_questao;
             echo "</td>";
             echo "<td>";
             echo $value;

@@ -26,6 +26,7 @@ echo "<form id='form' action='provaResolvida.php' method='GET'>";
   require   "db_credentials.php";
 
   $idLista = $_GET['idlista'];
+  $num_questao=0;
 
   $conn = mysqli_connect($servername,$username,$db_password,$dbname);
 
@@ -57,9 +58,9 @@ echo "<form id='form' action='provaResolvida.php' method='GET'>";
               $acertos = $stcQ['acertos'];
               $nLikes = $stcQ['numeroLikes'];
               $correct = $stcQ['alternativaCorreta'];
+              $num_questao++;
 
-
-              echo "<h3>{$titulo}</h3></br>";
+              echo "<h3>{$num_questao}</h3></br>";
               echo "<h4>{$enunciado}</h4></br>";
               echo "<div class='container'><fieldset>";
               echo "<input class='questao' type='radio' name={$idQuestao} value='A' required>a) {$altA}<br>";
