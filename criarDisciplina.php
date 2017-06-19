@@ -1,6 +1,8 @@
 <?php
   require "authenticate.php";
 ?>
+
+<!DOCTYPE html>
 <html>
   <head>
     <title>ProfessorHelper</title>
@@ -15,84 +17,16 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="index.php">ProfessorHelper</a>
-        </div>
+    <?php require_once "php/navBar.php"; ?> <!-- nessa linha estamos requisitando a barra de navegação superior -->
 
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="#">Início</a></li>
-          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Criar<span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="criarCurso.php">Curso</a></li>
-              <li><a href="criarDisciplina.php">Disciplina</a></li>
-              <li><a href="criarAssunto.php">Assunto</a></li>
-              <li><a href="criarQuestao.php">Questão</a></li>
-            </ul>
-          </li>
-          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Lista<span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Minhas Listas</a></li>
-              <li><a href="#">Nova Lista</a></li>
-            </ul>
-          </li>
-
-          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Filtrar por curso<span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Análise de Sistemas</a></li>
-              <li><a href="#">Engenharia Mecânica</a></li>
-              <li><a href="#">Economia</a></li>
-              <li><a href="#">Arquitetura</a></li>
-            </ul>
-          </li>
-
-          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Filtrar por disciplina<span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Análise de Sistemas</a></li>
-              <li><a href="#">Engenharia Mecânica</a></li>
-              <li><a href="#">Economia</a></li>
-              <li><a href="#">Arquitetura</a></li>
-            </ul>
-          </li>
-
-          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Filtrar por assunto<span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Análise de Sistemas</a></li>
-              <li><a href="#">Engenharia Mecânica</a></li>
-              <li><a href="#">Economia</a></li>
-              <li><a href="#">Arquitetura</a></li>
-            </ul>
-          </li>
-        </ul>
-
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Sair</a></li>
-        </ul>
-
-        <form class="navbar-form navbar-right">
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Busca">
-            <div class="input-group-btn">
-              <button class="btn btn-default" type="submit">
-                <i class="glyphicon glyphicon-search"></i>
-              </button>
-            </div>
-          </div>
-        </form>
-
-      </div>
-  </nav>
-
-  <div class="container-fluid text-center">
-    <div class="row content">
-      <div class="col-sm-2 sidenav">
-      </div>
-      <div class="col-sm-8 text-left"> <!-- div que compoe as ultimas questoes adicionadas -->
+    <div class="container-fluid text-center">
+      <div class="row content">
+        <div class="col-sm-2 sidenav"></div> <!-- esse trecho de codigo só existe pra manter a posicao correta dos elementos na pagina -->
+          <div class="col-sm-8 text-left"> <!-- div que compoe o fundo cinza -->
 
 
-      <!-- Inicio do formulário de criação da disciplina -->
-        <div class="container">
+          <!-- Inicio do formulário de criação da disciplina -->
+          <div class="container">
             <h2>Criar Disciplina</h2>
             <form class="form-horizontal" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
               <!-- The htmlspecialchars() function converts special characters to HTML entities. It avoids exploits -->
@@ -114,53 +48,14 @@
                 <label class="control-label col-sm-2" for="nomeCurso">Curso:</label>
                   <select name="selectedOption" class="custom-select mb-2 mr-sm-2 mb-sm-0">
                     <option selected>Escolha...</option>
-                    <?php
-                      // Inicio do processo de obtenção dos cursos registrados no banco de dados
-                      require_once 'db_credentials.php';
-                      $conn = mysqli_connect($servername,$username,$db_password,$dbname);
-
-                      if(!$conn){
-                        die ('Erro ao conectar ao banco MySQL. Não foi possível gerar dropdown para cursos');
-                      }
-
-                      $sql = "SELECT * FROM Curso";
-                      $result = mysqli_query($conn, $sql);
-                      if(!$result){
-                        die ('Erro ao consultar banco MySQL');
-                      }
-
-                      if($result){
-                          while($stc = mysqli_fetch_array($result)){
-                            $cursoNome= $stc['nomeCurso'];
-                            $cursoDesc= $stc['descricao'];
-                            $cursoid= $stc['idCurso'];
-
-                            //$ref = $_SERVER["PHP_SELF"] . "?id=" . $stc["idCurso"] . "&" . "acao=cursoSelecionado";
-                            //echo "<li><a href=\"{$ref}\">{$cursoNome} - {$cursoDesc}</a></li>";
-                            echo "<option value=\"{$cursoid}\">{$cursoNome} - {$cursoDesc}</option>";
-                          }
-                      }
-                      else {
-                          echo "<li><a href=\"#\">Sem cursos :( </a></li>";
-                      }
-                      mysqli_close($conn);
-                      // Fim do processo de obtenção dos cursos registrados no banco de dados
-                    ?>
+                      <?php require_once "php/showC.php"; ?> <!-- nessa linha estamos requisitando os cursos escritos no bd -->
                   </select>
                   <input type="submit" value="Submit the form"/>
-          </form>
-              <!-- Fim do menu dropdown com opcoes de cursos -->
-              <!--<div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                  <button type="submit" value="submitDisc" class="btn btn-default" formmethod="POST">Criar</button>
-                </div>
-              </div> -->
+              </form>
             </form>
-      </div>
-    </body>
+            <br>
 
-      <!-- Fim do formulário de criação de curso -->
-
+      <!-- Fim do formulário de criação de disciplina e inicio da escrita no banco-->
       <?php
           require_once 'db_credentials.php';
           $conn = mysqli_connect($servername,$username,$db_password,$dbname);
@@ -180,16 +75,18 @@
               $sql = "INSERT INTO Disciplina (nomeDisciplina, descricao, codCurso, professorOwner) VALUES ('$nomeDisc', '$descricaoDisc', '$codCurso', '$owner');";
 
               if (mysqli_query($conn, $sql)) {
-                  echo "<b>Disciplina criada com sucesso!</b>";
+                  echo "<b><br>Disciplina criada com sucesso!</b>";
               } else {
-                  echo "Erro: " . $sql . "<br>" . mysqli_error($conn);
+                  echo "Erro: " . $sql . "<br><br>" . mysqli_error($conn);
               }
             }
           }
-
-
-
           mysqli_close($conn);
       ?>
 
+</div>
+</div>
+</div>
+</div>
+</body>
 </html>

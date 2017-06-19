@@ -1,7 +1,7 @@
 CREATE TABLE Professor (
     idProfessor SMALLINT PRIMARY KEY AUTO_INCREMENT,
     tipo ENUM ('user', 'admin') DEFAULT 'user',
-    nome VARCHAR(100) NOT NULL,
+    name VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL,
     password VARCHAR(128) NOT NULL,
     created_at DATETIME,
@@ -82,3 +82,7 @@ CREATE TABLE ListaQuestao (
 
 ALTER TABLE ListaQuestao ADD FOREIGN KEY (codQuestao) REFERENCES Questao (idQuestao);
 ALTER TABLE ListaQuestao ADD FOREIGN KEY (codLista) REFERENCES Lista (idLista);
+ALTER TABLE Questao MODIFY COLUMN numeroLikes SMALLINT(3) DEFAULT 0;
+ALTER TABLE Questao ADD numeroDislikes smallint(3) DEFAULT 0;
+ALTER TABLE Questao MODIFY COLUMN erros SMALLINT(3) DEFAULT 0;
+ALTER TABLE Questao MODIFY COLUMN acertos SMALLINT(3) DEFAULT 0;

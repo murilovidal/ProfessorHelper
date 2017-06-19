@@ -1,6 +1,8 @@
 <?php
   require "authenticate.php";
 ?>
+
+<!DOCTYPE html>
 <html>
   <head>
     <title>ProfessorHelper</title>
@@ -15,85 +17,45 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="index.php">ProfessorHelper</a>
-        </div>
+    <?php require_once "php/navBar.php"; ?> <!-- nessa linha estamos requisitando a barra de navegação superior -->
 
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="#">Início</a></li>
-          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Criar<span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="criarCurso.php">Curso</a></li>
-              <li><a href="criarDisciplina.php">Disciplina</a></li>
-              <li><a href="criarAssunto.php">Assunto</a></li>
-              <li><a href="criarQuestao.php">Questão</a></li>
-            </ul>
-          </li>
-          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Lista<span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Minhas Listas</a></li>
-              <li><a href="#">Nova Lista</a></li>
-            </ul>
-          </li>
+    <div class="container-fluid text-center">
+      <div class="row content">
+        <div class="col-sm-2 sidenav"></div> <!-- esse trecho de codigo só existe pra manter a posicao correta dos elementos na pagina -->
+          <div class="col-sm-8 text-left"> <!-- div que compoe o fundo cinza -->
 
-          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Filtrar por curso<span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Análise de Sistemas</a></li>
-              <li><a href="#">Engenharia Mecânica</a></li>
-              <li><a href="#">Economia</a></li>
-              <li><a href="#">Arquitetura</a></li>
-            </ul>
-          </li>
-
-          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Filtrar por disciplina<span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Análise de Sistemas</a></li>
-              <li><a href="#">Engenharia Mecânica</a></li>
-              <li><a href="#">Economia</a></li>
-              <li><a href="#">Arquitetura</a></li>
-            </ul>
-          </li>
-
-          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Filtrar por assunto<span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Análise de Sistemas</a></li>
-              <li><a href="#">Engenharia Mecânica</a></li>
-              <li><a href="#">Economia</a></li>
-              <li><a href="#">Arquitetura</a></li>
-            </ul>
-          </li>
-        </ul>
-
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Sair</a></li>
-        </ul>
-
-        <form class="navbar-form navbar-right">
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Busca">
-            <div class="input-group-btn">
-              <button class="btn btn-default" type="submit">
-                <i class="glyphicon glyphicon-search"></i>
-              </button>
-            </div>
-          </div>
-        </form>
-
-      </div>
-  </nav>
-
-  <div class="container-fluid text-center">
-    <div class="row content">
-      <div class="col-sm-2 sidenav"></div>
-      <div class="col-sm-8 text-left"> <!-- div que compoe o fundo cinza -->
-
-      <!-- Inicio do formulário de criação de questao -->
-        <div class="container">
+          <!-- Inicio do formulário de criação de questao -->
+          <div class="container">
             <h2>Criar Questão</h2>
             <form class="form-horizontal" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
               <!-- The htmlspecialchars() function converts special characters to HTML entities. It avoids exploits -->
+              <!-- Inicio do menu dropdown com opcoes de cursos -->
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="nomeCurso">Curso:</label>
+                  <select name="selectedOptionCurso" class="custom-select mb-2 mr-sm-2 mb-sm-0">
+                    <option selected>Escolha...</option>
+                      <?php require_once "php/showC.php"; ?> <!-- nessa linha estamos requisitando a barra de navegação superior -->
+                  </select>
+              </div>
+
+              <!-- Inicio do menu dropdown com opcoes de disciplinas -->
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="nomeCurso">Disciplina:</label>
+                <select name="selectedOptionDisc" class="custom-select mb-2 mr-sm-2 mb-sm-0">
+                  <option selected>Escolha...</option>
+                    <?php require_once "php/showD.php"; ?> <!-- nessa linha estamos requisitando a barra de navegação superior -->
+                </select>
+              </div>
+
+              <!-- Inicio do menu dropdown com opcoes de assuntos -->
+              <div class="form-group">
+              <label class="control-label col-sm-2" for="nomeCurso">Assunto:</label>
+                <select name="selectedOptionAssunto" class="custom-select mb-2 mr-sm-2 mb-sm-0">
+                  <option selected>Escolha...</option>
+                  <?php require_once "php/showA.php"; ?> <!-- nessa linha estamos requisitando a barra de navegação superior -->
+                </select>
+              </div>
+
               <div class="form-group">
                 <label class="control-label col-sm-2" for="tituloQuestao">Titulo:</label>
                 <div class="col-sm-8">
@@ -149,170 +111,57 @@
                 </select>
               </div>
 
-                <!-- Inicio do menu dropdown com opcoes de cursos -->
-                <div class="form-group">
-                  <label class="control-label col-sm-2" for="nomeCurso">Curso:</label>
-                    <select name="selectedOptionCurso" class="custom-select mb-2 mr-sm-2 mb-sm-0">
-                      <option selected>Escolha...</option>
-                      <?php
-                        // Inicio do processo de obtenção dos cursos registrados no banco de dados
-                        require_once 'db_credentials.php';
-                        $conn = mysqli_connect($servername,$username,$db_password,$dbname);
-
-                        if(!$conn){
-                          die ('Erro ao conectar ao banco MySQL. Não foi possível gerar dropdown para cursos');
-                        }
-
-                        $sql = "SELECT * FROM Curso";
-                        $result = mysqli_query($conn, $sql);
-                        if(!$result){
-                          die ('Erro ao consultar banco MySQL');
-                        }
-
-                        if($result){
-                            while($stc = mysqli_fetch_array($result)){
-                              $cursoNome= $stc['nomeCurso'];
-                              $cursoDesc= $stc['descricao'];
-                              $cursoid= $stc['idCurso'];
-                              echo "<option value=\"{$cursoid}\">{$cursoNome} - {$cursoDesc}</option>";
-                            }
-                        }
-                        else {
-                            echo "<li><a href=\"#\">Sem cursos :( </a></li>";
-                        }
-                        mysqli_close($conn);
-                        // Fim do processo de obtenção dos cursos registrados no banco de dados
-                      ?>
-                    </select>
+                <!-- Inicio do botao para criar questao -->
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <button type="submit" class="btn btn-default">Criar</button>
+                    </div>
                   </div>
+                </form>
 
-            <!-- Inicio do menu dropdown com opcoes de disciplinas -->
-            <div class="form-group">
-            <label class="control-label col-sm-2" for="nomeCurso">Disciplina:</label>
-              <select name="selectedOptionDisc" class="custom-select mb-2 mr-sm-2 mb-sm-0">
-                <option selected>Escolha...</option>
                 <?php
-                  // Inicio do processo de obtenção dos cursos registrados no banco de dados
-                  require_once 'db_credentials.php';
-                  $conn = mysqli_connect($servername,$username,$db_password,$dbname);
+                    require_once 'db_credentials.php';
+                    $conn = mysqli_connect($servername,$username,$db_password,$dbname);
 
-                  if(!$conn){
-                    die ('Erro ao conectar ao banco MySQL. Não foi possível gerar dropdown para cursos');
+                    if(!$conn){
+                      die ('Erro ao conectar ao banco MySQL'.mysqli_connect_error());
+                    }
+
+                    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+                      if((isset($_POST["tituloQuestao"])) && (isset($_POST["enunciadoQuestao"]))) {
+
+                        $titulo = $_POST['tituloQuestao'];
+                        $enunciado = $_POST['enunciadoQuestao'];
+                        $altA = $_POST['alternativaA'];
+                        $altB = $_POST['alternativaB'];
+                        $altC = $_POST['alternativaC'];
+                        $altD = $_POST['alternativaD'];
+                        $altE = $_POST['alternativaE'];
+                        $correta = $_POST['selectedOptionAlternativa'];
+                        $codCurso = $_POST['selectedOptionCurso'];
+                        $codDisc = $_POST['selectedOptionDisc'];
+                        $codAssunto = $_POST['selectedOptionAssunto'];
+                        $owner = $_SESSION['user_id'];
+
+
+                        $sql = "INSERT INTO Questao (tituloQuestao, enunciado, alternativaA, alternativaB, alternativaC, alternativaD, alternativaE, alternativaCorreta, curso, disciplina, assunto, professorOwner)
+                                VALUES ('$titulo', '$enunciado', '$altA', '$altB', '$altC', '$altD', '$altE', '$correta', '$codCurso', '$codDisc', '$codAssunto', '$owner');";
+
+
+                        if (mysqli_query($conn, $sql)) {
+                            echo "<b>Questao criada com sucesso!</b>";
+                        } else {
+                            echo "Erro: " . $sql . "<br>" . mysqli_error($conn);
+                        }
+                    }
                   }
 
-                  $sql = "SELECT * FROM Disciplina";
-                  $result = mysqli_query($conn, $sql);
-                  if(!$result){
-                    die ('Erro ao consultar banco MySQL');
-                  }
-
-                  if($result){
-                      while($stc = mysqli_fetch_array($result)){
-                        $DiscNome= $stc['nomeDisciplina'];
-                        $DiscDesc= $stc['descricao'];
-                        $Discid= $stc['idDisciplina'];
-                        echo "<option value=\"{$Discid}\">{$DiscNome} - {$DiscDesc}</option>";
-                      }
-                  }
-                  else {
-                      echo "<li><a href=\"#\">Sem cursos :( </a></li>";
-                  }
-                  mysqli_close($conn);
-                  // Fim do processo de obtenção das disciplinas registrados no banco de dados
+                    mysqli_close($conn);
                 ?>
-              </select>
-            </div>
-
-            <!-- Inicio do menu dropdown com opcoes de assuntos -->
-            <div class="form-group">
-            <label class="control-label col-sm-2" for="nomeCurso">Assunto:</label>
-              <select name="selectedOptionAssunto" class="custom-select mb-2 mr-sm-2 mb-sm-0">
-                <option selected>Escolha...</option>
-                <?php
-                  // Inicio do processo de obtenção dos assuntos registrados no banco de dados
-                  require_once 'db_credentials.php';
-                  $conn = mysqli_connect($servername,$username,$db_password,$dbname);
-
-                  if(!$conn){
-                    die ('Erro ao conectar ao banco MySQL. Não foi possível gerar dropdown para cursos');
-                  }
-
-                  $sql = "SELECT * FROM Assunto";
-                  $result = mysqli_query($conn, $sql);
-                  if(!$result){
-                    die ('Erro ao consultar banco MySQL');
-                  }
-
-                  if($result){
-                      while($stc = mysqli_fetch_array($result)){
-                        $assunto= $stc['tituloAssunto'];
-                        $codAssunto = $stc['idAssunto'];
-                        echo "<option value=\"{$codAssunto}\">{$assunto}</option>";
-                      }
-                  }
-                  else {
-                      echo "<li><a href=\"#\">Sem cursos :( </a></li>";
-                  }
-                  mysqli_close($conn);
-                  // Fim do processo de obtenção dos cursos registrados no banco de dados
-                ?>
-              </select>
-            </div>
-            <!-- Inicio do botao para criar questao -->
-              <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                  <button type="submit" class="btn btn-default">Criar</button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
+</div>
+</div>
+</div>
+</div>
 </body>
-
-<?php
-
-    require_once 'db_credentials.php';
-    $conn = mysqli_connect($servername,$username,$db_password,$dbname);
-
-    if(!$conn){
-      die ('Erro ao conectar ao banco MySQL'.mysqli_connect_error());
-    }
-
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-      if((isset($_POST["tituloQuestao"])) && (isset($_POST["enunciadoQuestao"]))) {
-
-        $titulo = $_POST['tituloQuestao'];
-        $enunciado = $_POST['enunciadoQuestao'];
-        $altA = $_POST['alternativaA'];
-        $altB = $_POST['alternativaB'];
-        $altC = $_POST['alternativaC'];
-        $altD = $_POST['alternativaD'];
-        $altE = $_POST['alternativaE'];
-        $correta = $_POST['selectedOptionAlternativa'];
-        $codCurso = $_POST['selectedOptionCurso'];
-        $codDisc = $_POST['selectedOptionDisc'];
-        $codAssunto = $_POST['selectedOptionAssunto'];
-        $owner = $_SESSION['user_id'];
-
-
-        $sql = "INSERT INTO Questao (tituloQuestao, enunciado, alternativaA, alternativaB, alternativaC, alternativaD, alternativaE, alternativaCorreta, curso, disciplina, assunto, professorOwner)
-                VALUES ('$titulo', '$enunciado', '$altA', '$altB', '$altC', '$altD', '$altE', '$correta', '$codCurso', '$codDisc', '$codAssunto', '$owner');";
-
-
-        if (mysqli_query($conn, $sql)) {
-            echo "<b>Questao criada com sucesso!</b>";
-        } else {
-            echo "Erro: " . $sql . "<br>" . mysqli_error($conn);
-        }
-    }
-  }
-
-
-    mysqli_close($conn);
-?>
-
-
 </html>

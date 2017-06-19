@@ -1,6 +1,8 @@
 <?php
   require "authenticate.php";
 ?>
+
+<!DOCTYPE html>
 <html>
   <head>
     <title>ProfessorHelper</title>
@@ -15,84 +17,14 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="index.php">ProfessorHelper</a>
-        </div>
-
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="#">Início</a></li>
-          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Criar<span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="criarCurso.php">Curso</a></li>
-              <li><a href="criarDisciplina.php">Disciplina</a></li>
-              <li><a href="criarAssunto.php">Assunto</a></li>
-              <li><a href="criarQuestao.php">Questão</a></li>
-            </ul>
-          </li>
-          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Lista<span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Minhas Listas</a></li>
-              <li><a href="#">Nova Lista</a></li>
-            </ul>
-          </li>
-
-          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Filtrar por curso<span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Análise de Sistemas</a></li>
-              <li><a href="#">Engenharia Mecânica</a></li>
-              <li><a href="#">Economia</a></li>
-              <li><a href="#">Arquitetura</a></li>
-            </ul>
-          </li>
-
-          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Filtrar por disciplina<span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Análise de Sistemas</a></li>
-              <li><a href="#">Engenharia Mecânica</a></li>
-              <li><a href="#">Economia</a></li>
-              <li><a href="#">Arquitetura</a></li>
-            </ul>
-          </li>
-
-          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Filtrar por assunto<span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Análise de Sistemas</a></li>
-              <li><a href="#">Engenharia Mecânica</a></li>
-              <li><a href="#">Economia</a></li>
-              <li><a href="#">Arquitetura</a></li>
-            </ul>
-          </li>
-        </ul>
-
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Sair</a></li>
-        </ul>
-
-        <form class="navbar-form navbar-right">
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Busca">
-            <div class="input-group-btn">
-              <button class="btn btn-default" type="submit">
-                <i class="glyphicon glyphicon-search"></i>
-              </button>
-            </div>
-          </div>
-        </form>
-
-      </div>
-  </nav>
+    <?php require_once "php/navBar.php"; ?> <!-- nessa linha estamos requisitando a barra de navegação superior -->
 
   <div class="container-fluid text-center">
     <div class="row content">
-      <div class="col-sm-2 sidenav">
-      </div>
-      <div class="col-sm-8 text-left"> <!-- div que compoe as ultimas questoes adicionadas -->
+      <div class="col-sm-2 sidenav"></div> <!-- esse trecho de codigo só existe pra manter a posicao correta dos elementos na pagina -->
+        <div class="col-sm-8 text-left"> <!-- div que compoe o fundo cinza -->
 
-
-      <!-- Inicio do formulário de criação de curso -->
-
+        <!-- Inicio do formulário de criação de curso -->
         <div class="container">
             <h2>Criar Curso</h2>
             <form class="form-horizontal" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
@@ -115,11 +47,8 @@
                 </div>
               </div>
             </form>
-      </div>
-    </body>
 
-      <!-- Fim do formulário de criação de curso -->
-
+    <!-- Fim do formulário de criação de curso e inicio do processo de escrita do novo curso no bd-->
       <?php
           require 'db_credentials.php';
           $conn = mysqli_connect($servername,$username,$db_password,$dbname);
@@ -146,5 +75,9 @@
 
           mysqli_close($conn);
       ?>
-
+</div>
+</div>
+</div>
+</div>
+</body>
 </html>

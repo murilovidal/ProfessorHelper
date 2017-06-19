@@ -24,39 +24,33 @@
       <div class="col-sm-2 sidenav"></div> <!-- esse trecho de codigo só existe pra manter a posicao correta dos elementos na pagina -->
         <div class="col-sm-8 text-left"> <!-- div que compoe o fundo cinza -->
 
-
-      <!-- Inicio do formulário de criação de assunto -->
+        <!-- Inicio do formulário de criação de curso -->
         <div class="container">
-            <h2>Criar Assunto</h2>
+            <h2>Criar Lista</h2>
             <form class="form-horizontal" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
               <!-- The htmlspecialchars() function converts special characters to HTML entities. It avoids exploits -->
               <div class="form-group">
-                <label class="control-label col-sm-2" for="nomeCurso">Assunto:</label>
+                <label class="control-label col-sm-2" for="nomeLista">Nome da Lista:</label>
                 <div class="col-sm-8">
-                  <input required type="text" class="form-control" id="Assunto" placeholder="Entre com o assunto" name="Assunto">
+                  <input required type="text" class="form-control" id="nomeLista" placeholder="Entre com um nome para a lista" name="nomeLista">
                 </div>
               </div>
               <div class="form-group">
                 <label class="control-label col-sm-2" for="pwd">Descrição:</label>
                 <div class="col-sm-8">
-                  <input required type="text" class="form-control" id="descricaoAssunto" placeholder="Escreva uma descrição" name="descricaoAssunto">
+                  <input required type="text" class="form-control" id="descricaoLista" placeholder="Escreva uma descrição" name="descricaoLista">
                 </div>
               </div>
-
-              <!-- Inicio do menu dropdown com opcoes de disciplinas -->
-              <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-                <label class="control-label col-sm-2" for="nomeCurso">Curso:</label>
-                  <select name="selectedOption" class="custom-select mb-2 mr-sm-2 mb-sm-0">
-                    <option selected>Escolha...</option>
-                    <?php require_once "php/showD.php"; ?> <!-- nessa linha estamos requisitando as disciplinas do banco de dados -->
-                  </select>
-                  <input type="submit" value="Submit the form"/>
-              </form>
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submitCurso" class="btn btn-default">Criar</button>
+                </div>
+              </div>
             </form>
-            <br>
 
-<?php // inicio do processo de escrita do novo assunto no banco de dados
-          require_once 'db_credentials.php';
+    <!-- Fim do formulário de criação de curso e inicio do processo de escrita do novo curso no bd-->
+      <?php
+          require 'db_credentials.php';
           $conn = mysqli_connect($servername,$username,$db_password,$dbname);
 
           if(!$conn){
@@ -64,25 +58,23 @@
           }
 
           if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            if((isset($_POST["Assunto"])) && (isset($_POST["descricaoAssunto"]))) {
-
-              $assunto = $_POST['Assunto'];
-              $descricao = $_POST['descricaoAssunto'];
-              $codDisc = $_POST['selectedOption'];
+            if((isset($_POST["nomeLista"])) && (isset($_POST["descricaoLista"]))) {
+              $nomeLista= $_POST['nomeLista'];
+              $descricaoL = $_POST['descricaoLista'];
               $owner = $_SESSION['user_id'];
 
-              $sql = "INSERT INTO Assunto (tituloAssunto, descricao, codDisc, professorOwner) VALUES ('$assunto', '$descricao', '$codDisc', '$owner');";
+              $sql = "INSERT INTO Lista (tituloLista, descricao, professorOwner) VALUES ('$nomeLista', '$descricaoL','$owner');";
 
               if (mysqli_query($conn, $sql)) {
-                  echo "<b><br>Assunto criado com sucesso!</b>";
+                  echo "<b>Lista criado com sucesso!</b>";
               } else {
-                  echo "Erro: " . $sql . "<br><br>" . mysqli_error($conn);
+                  echo "Erro: " . $sql . "<br>" . mysqli_error($conn);
               }
             }
           }
+
           mysqli_close($conn);
       ?>
-
 </div>
 </div>
 </div>

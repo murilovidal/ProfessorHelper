@@ -2,3 +2,22 @@
   background-color: #F5F5F5;
   border-radius: 25px;
 }
+
+#like {
+  margin-right: 20px;
+  border-style: none;
+  background-color: #79a9f7;
+}
+
+#dislike {
+  margin-right: 30px;
+  border-style: none;
+  background-color: #ef7083;
+}
+
+#divMinhasListas{
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #F5F5F5;
+}

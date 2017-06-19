@@ -14,7 +14,7 @@ if (!$login && $_SERVER["REQUEST_METHOD"] == "POST") {
     $password = mysqli_real_escape_string($conn,$_POST["password"]);
     $password = md5($password);
 
-    $sql = "SELECT idProfessor,name,email,password FROM $table_users
+    $sql = "SELECT idProfessor,name,email,password, tipo FROM $table_users
             WHERE email = '$email';";
 
     $result = mysqli_query($conn, $sql);
@@ -27,6 +27,7 @@ if (!$login && $_SERVER["REQUEST_METHOD"] == "POST") {
           $_SESSION["user_id"] = $user["idProfessor"];
           $_SESSION["user_name"] = $user["name"];
           $_SESSION["user_email"] = $user["email"];
+          $_SESSION["user_type"] = $user["tipo"];
 
           //header("Location: " . dirname($_SERVER['SCRIPT_NAME']) . "/index.php");
           header("Location: " . "/index.php");
