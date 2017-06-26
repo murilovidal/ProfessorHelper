@@ -14,6 +14,7 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="saveOnList.js"></script>
   </head>
 
   <body>
@@ -60,6 +61,15 @@
             echo "<p>c) {$altC}<p>";
             echo "<p>d) {$altD}<p>";
             echo "<p>e) {$altE}<br><br>";
+            if ($_SESSION['idLista']!=0) {
+              echo "<button type='button' class='btn btn-success btn-md' name='include' value='Adicionar à lista' id='{$idQuestao}'>Adicionar à lista</button><br>";
+            }
+            else {
+              echo " <a href='minhasListas.php' class='btn btn-info' role='button'>Selecione uma Lista</a><br>";
+            }
+            echo "<button type='button' id='{$idQuestao}' name='likeSubmit' class='btn btn-primary glyphicon glyphicon-thumbs-up' id='{$idQuestao}'> Curti</button>";
+            echo "<button type='button' id='{$idQuestao}' name='dislikeSubmit' class='btn btn-danger glyphicon glyphicon-thumbs-down' id='{$idQuestao}'> Não curti</button>";
+            echo "</div><br>";
           }
       }
       else {
